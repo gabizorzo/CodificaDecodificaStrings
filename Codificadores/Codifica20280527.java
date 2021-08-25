@@ -1,23 +1,45 @@
 package Codificadores;
 
 public class Codifica20280527 implements Codifica {
+    private static String alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
+    private static String alfabetoReverso = "zyxwvutsrqponmlkjihgfedcba0987654321ZYXWVUTSRQPONMLKJIHGFEDCBA";
  
     @Override
     public String codifica(String str) {
-        String firstHalf = str.substring(0, str.length()/2);
-        String secondHalf = str.substring(str.length()/2);
-        String codificada = new StringBuilder(firstHalf).reverse().toString() + new StringBuilder(secondHalf).reverse().toString();
+        String codificada = "";
 
+        for (char c : str.toCharArray()) {
+            Boolean temReverso = false;
+            for (int i = 0; i < alfabeto.length(); i++) {
+                if (c == alfabeto.charAt(i)) {
+                    codificada += alfabetoReverso.charAt(i);
+                    temReverso = true;
+                }
+            }
+            if (!temReverso) {
+                codificada += c;
+            }
+        }
         return codificada;
     }
 
     @Override
     public String decodifica(String str) {
-        String firstHalf = str.substring(0, str.length()/2);
-        String secondHalf = str.substring(str.length()/2);
-        String codificada = new StringBuilder(firstHalf).reverse().toString() + new StringBuilder(secondHalf).reverse().toString();
+        String decodificada = "";
 
-        return codificada;
+        for (char c : str.toCharArray()) {
+            Boolean temReverso = false;
+            for (int i = 0; i < alfabetoReverso.length(); i++) {
+                if (c == alfabetoReverso.charAt(i)) {
+                    decodificada += alfabeto.charAt(i);
+                    temReverso = true;
+                }
+            }
+            if (!temReverso) {
+                decodificada += c;
+            }
+        }
+        return decodificada;
     }
 
     @Override
